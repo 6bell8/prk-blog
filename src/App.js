@@ -1,6 +1,7 @@
 /* eslint-disable */
 
-import "./App.css";
+import "./css/App.css";
+import "./css/layout.css";
 import { useState } from "react";
 
 function App() {
@@ -11,13 +12,20 @@ function App() {
     "여자 코트 추천",
   ]);
 
-  let [하트, 하트변경] = useState(0); // 배열 뒤에 있는 건 state 변경 함수
+  let [하트, 하트변경] = useState([0]); // 배열 뒤에 있는 건 state 변경 함수
+
+  let [modal, setModal] = useState(false);
+
+  [1, 2, 3].map(function (a) {
+    return "12313";
+  });
+
   return (
     <div className="App">
       <div className="black-nav">
         <h4>ReactBlog</h4>
       </div>
-
+      {/* 
       <button
         onClick={() => {
           let copy = [...글제목];
@@ -45,7 +53,11 @@ function App() {
       </button>
 
       <div className="list">
-        <h4>
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
           {글제목[0]}
           <span
             onClick={() => {
@@ -59,6 +71,7 @@ function App() {
           {하트}
         </h4>
         <p>9월 28일 발행</p>
+        {modal == true ? <Modal /> : null}
       </div>
 
       <div className="list">
@@ -66,12 +79,61 @@ function App() {
         <p>9월 28일 발행</p>
       </div>
       <div className="list">
-        <h4>{글제목[2]}</h4>
+        <h4
+      
+        >
+          {글제목[2]}
+        </h4>
         <p>9월 28일 발행</p>
-      </div>
-      <h4>{post}</h4>
+      </div> */}
+
+      {글제목.map(function (a, i) {
+        return (
+          <div className="list" key={i}>
+            <h4
+              onClick={() => {
+                setModal(!modal);
+              }}
+            >
+              {글제목[i]}{" "}
+              <span
+                onClick={() => {
+                  {
+                    하트변경(하트 + 1);
+                  }
+                }}
+              >
+                💗
+              </span>
+              {하트}
+            </h4>
+            <p>9월 28일 발행</p>
+            {modal == true ? <Modal /> : null}
+          </div>
+        );
+      })}
     </div>
   );
+}
+
+//컴포넌트의 단점은 state 가져다 쓸 때마다 문제가 생긴다.
+
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  );
+}
+
+function Jinsung() {
+  <div>
+    <h3>이름</h3>
+    <p>나이</p>
+    <p>별명</p>
+  </div>;
 }
 
 export default App;
