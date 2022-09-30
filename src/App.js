@@ -12,7 +12,7 @@ function App() {
     "여자 코트 추천",
   ]);
 
-  let [하트, 하트변경] = useState([0]); // 배열 뒤에 있는 건 state 변경 함수
+  let [하트, 하트변경] = useState([0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
 
   let [modal, setModal] = useState(false);
 
@@ -95,17 +95,19 @@ function App() {
                 setModal(!modal);
               }}
             >
-              {글제목[i]}{" "}
+              {글제목[i]}
               <span
                 onClick={() => {
                   {
-                    하트변경(하트 + 1);
+                    let copy = [...하트];
+                    copy[i] = copy[i] + 1;
+                    하트변경(copy);
                   }
                 }}
               >
                 💗
               </span>
-              {하트}
+              {하트[i]}
             </h4>
             <p>9월 28일 발행</p>
             {modal == true ? <Modal /> : null}
