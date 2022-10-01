@@ -15,10 +15,7 @@ function App() {
   let [하트, 하트변경] = useState([0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
 
   let [modal, setModal] = useState(false);
-
-  [1, 2, 3].map(function (a) {
-    return "12313";
-  });
+  let [title, setTitle] = useState(0);
 
   return (
     <div className="App">
@@ -93,6 +90,7 @@ function App() {
             <h4
               onClick={() => {
                 setModal(!modal);
+                setTitle(i);
               }}
             >
               {글제목[i]}
@@ -110,32 +108,62 @@ function App() {
               {하트[i]}
             </h4>
             <p>9월 28일 발행</p>
-            {modal == true ? <Modal /> : null}
           </div>
         );
       })}
+      <button
+        onClick={() => {
+          setTitle(0);
+        }}
+      >
+        글제목0
+      </button>
+      <button
+        onClick={() => {
+          setTitle(1);
+        }}
+      >
+        글제목1
+      </button>
+      <button
+        onClick={() => {
+          setTitle(2);
+        }}
+      >
+        글제목2
+      </button>
+
+      {modal == true ? (
+        <Modal 글제목={글제목} 글제목변경={글제목변경} title={title} />
+      ) : null}
     </div>
   );
 }
 
 //컴포넌트의 단점은 state 가져다 쓸 때마다 문제가 생긴다.
 
-function Modal() {
+// 부모  > 자식 state 전송하는 법
+// 1. 자식 컴포넌트 작명 = {state 이름}
+// 2. props 파라미터 등록 후 props.ex작명 이후 사용
+// props는 state 내려받을 때 웬만하면 옆에 있는 애랑 똑같은 이름으로 작명해줌
+
+// props 전송은 부모 > 자식만 가능하다
+
+function Modal(props) {
   return (
     <div className="modal">
-      <h4>제목</h4>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button
+        onClick={() => {
+          props.글제목변경(["여자코트 추천", "남자코트 추천", "커피원두 추천"]);
+        }}
+      >
+        글수정
+      </button>
     </div>
   );
-}
-
-function Jinsung() {
-  <div>
-    <h3>이름</h3>
-    <p>나이</p>
-    <p>별명</p>
-  </div>;
 }
 
 export default App;
