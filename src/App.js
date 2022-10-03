@@ -10,9 +10,10 @@ function App() {
     "남자 코트 추천",
     "커피원두 추천",
     "여자 코트 추천",
+    "여행지 추천",
   ]);
 
-  let [하트, 하트변경] = useState([0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
+  let [하트, 하트변경] = useState([0, 0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
 
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
@@ -131,6 +132,13 @@ function App() {
         }}
       >
         글제목2
+      </button>
+      <button
+        onClick={() => {
+          setTitle(3);
+        }}
+      >
+        글제목3
       </button>
 
       {modal == true ? (
