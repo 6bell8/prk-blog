@@ -16,6 +16,7 @@ function App() {
 
   let [modal, setModal] = useState(false);
   let [title, setTitle] = useState(0);
+  let [입력값, 입력값변경] = useState("");
 
   return (
     <div className="App">
@@ -95,8 +96,9 @@ function App() {
             >
               {글제목[i]}
               <span
-                onClick={() => {
+                onClick={(e) => {
                   {
+                    e.stopPropagation(); //이벤트 버블링을 막고싶다면
                     let copy = [...하트];
                     copy[i] = copy[i] + 1;
                     하트변경(copy);
@@ -132,7 +134,12 @@ function App() {
       >
         글제목2
       </button>
-
+      <input
+        onChange={(e) => {
+          입력값변경(e.target.value);
+          console.log(입력값);
+        }}
+      />
       {modal == true ? (
         <Modal 글제목={글제목} 글제목변경={글제목변경} title={title} />
       ) : null}
