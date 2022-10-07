@@ -12,6 +12,12 @@ function App() {
     "여자 코트 추천",
   ]);
 
+  function blogNameChange() {
+    let 글제목들 = [...글제목];
+    글제목들.unshift(입력값);
+    글제목변경(글제목들);
+  }
+
   let [하트, 하트변경] = useState([0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
 
   let [modal, setModal] = useState(false);
@@ -108,38 +114,25 @@ function App() {
                 💗
               </span>
               {하트[i]}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                글삭제
+              </button>
             </h4>
             <p>9월 28일 발행</p>
           </div>
         );
       })}
-      <button
-        onClick={() => {
-          setTitle(0);
-        }}
-      >
-        글제목0
-      </button>
-      <button
-        onClick={() => {
-          setTitle(1);
-        }}
-      >
-        글제목1
-      </button>
-      <button
-        onClick={() => {
-          setTitle(2);
-        }}
-      >
-        글제목2
-      </button>
+
       <input
         onChange={(e) => {
           입력값변경(e.target.value);
-          console.log(입력값);
         }}
       />
+      <button onClick={blogNameChange}>글발행</button>
       {modal == true ? (
         <Modal 글제목={글제목} 글제목변경={글제목변경} title={title} />
       ) : null}
