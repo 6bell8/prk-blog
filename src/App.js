@@ -13,9 +13,9 @@ function App() {
   ]);
 
   function blogNameChange() {
-    let 글제목들 = [...글제목];
-    글제목들.unshift(입력값);
-    글제목변경(글제목들);
+    let copy = [...글제목];
+    copy.unshift(입력값);
+    글제목변경(copy);
   }
 
   let [하트, 하트변경] = useState([0, 0, 0]); // 배열 뒤에 있는 건 state 변경 함수
@@ -90,7 +90,6 @@ function App() {
         </h4>
         <p>9월 28일 발행</p>
       </div> */}
-
       {글제목.map(function (a, i) {
         return (
           <div className="list" key={i}>
@@ -114,19 +113,21 @@ function App() {
                 💗
               </span>
               {하트[i]}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-              >
-                글삭제
-              </button>
             </h4>
             <p>9월 28일 발행</p>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                let copy = [...글제목];
+                copy.splice(i, 1); // 0 배열이 시작하는 부분 1, 배열이 지워지는 부분
+                글제목변경(copy);
+              }}
+            >
+              글삭제
+            </button>
           </div>
         );
       })}
-
       <input
         onChange={(e) => {
           입력값변경(e.target.value);
